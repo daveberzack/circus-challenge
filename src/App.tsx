@@ -1,24 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import Header from "./components/Header";
+import Form from "./components/Form";
+import Result from "./components/Result";
+import { getWeatherForCity } from "./utils/data";
+import { IWeather } from "./interfaces/IWeather";
+import "./App.css";
 
 function App() {
+  const [weatherData, setWeatherData] = useState<IWeather | null>(null);
+
+  const updateWeatherData = async (city: string) => {
+    const newData = await getWeatherForCity(city);
+    console.log(newData);
+    const newWeatherData: IWeather = {
+      name: newData.name,
+      description: newData.weather[0].description,
+      currentTemp: newData.main.temp,
+      feelsLike: newData.main.feels_like,
+      windSpeed: newData.wind.speed,
+    };
+    setWeatherData(newWeatherData);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header></Header>
+      <main>
+        <Form onSearch={updateWeatherData}></Form>
+        <Result data={weatherData}></Result>
+      </main>
     </div>
   );
 }
