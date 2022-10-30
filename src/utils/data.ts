@@ -1,5 +1,6 @@
 const getWeatherForCity = (city: string) => {
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=e6e467f891d8a0979e2f70e90ad2771f`;
+  const key = process.env.REACT_APP_WEATHER_API_KEY;
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}`;
 
   return fetch(url, {
     method: "GET",
