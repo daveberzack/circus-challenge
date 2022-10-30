@@ -12,13 +12,24 @@ function App() {
   const updateWeatherData = async (city: string) => {
     const newData = await getWeatherForCity(city);
     console.log(newData);
-    const newWeatherData: IWeather = {
-      name: newData.name,
-      description: newData.weather[0].description,
-      currentTemp: newData.main.temp,
-      feelsLike: newData.main.feels_like,
-      windSpeed: newData.wind.speed,
+    let newWeatherData: IWeather = {
+      name: "City not Found",
+      description: "",
+      currentTemp: 0,
+      feelsLike: 0,
+      windSpeed: 0,
+      isValid: false,
     };
+    if (newData.cod === 200) {
+      newWeatherData = {
+        name: newData.name,
+        description: newData.weather[0].description,
+        currentTemp: newData.main.temp,
+        feelsLike: newData.main.feels_like,
+        windSpeed: newData.wind.speed,
+        isValid: true,
+      };
+    }
     setWeatherData(newWeatherData);
   };
 

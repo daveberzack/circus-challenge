@@ -19,7 +19,11 @@ const Form: React.FC<IProps> = ({ onSearch }) => {
   return (
     <form onSubmit={handleSubmit}>
       <label htmlFor="city">City</label>
-      <input id="city" onChange={handleCityChange}></input>
+      <input
+        id="city"
+        onChange={handleCityChange}
+        placeholder="Enter your city"
+      ></input>
       <input type="submit" value="Search"></input>
     </form>
   );

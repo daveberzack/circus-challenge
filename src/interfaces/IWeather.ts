@@ -4,4 +4,5 @@ export interface IWeather {
   currentTemp: number;
   feelsLike: number;
   windSpeed: number;
+  isValid: boolean;
 }
